@@ -12,7 +12,47 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
+@theme {
+  --color-primary-dark: #d02d1e;
+  --color-primary: #f86355;
+  --color-primary-light: #f4c1bc;
+
+  --color-secondary-dark: #3549b5;
+  --color-secondary: #5f72d7;
+  --color-secondary-light: #aeb8f6;
+
+  --color-neutral-25: #f7f7f7;
+  --color-neutral-50: #efefef;
+  --color-neutral-100: #e6e6e6;
+  /* Todo: continue neutral color weights */
+
+  --color-success: #0e980e;
+  --color-error: #c92020;
+  --color-warning: #ee9c11;
+  --color-info: #2f78f0;
+}
+
+@layer components {
+  .button {
+    @apply m-2 p-3 rounded-lg bg-cyan-200 text-neutral-800 shadow-lg;
+  }
+}
+
+@layer base {
+  h3 {
+    @apply font-medium;
+  }
+
+  p {
+    @apply text-neutral-900;
+  }
+}
+
+@utility flex-center-all {
+  @apply flex justify-center items-center;
+}
+
+@media (prefers-color-scheme: light) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
@@ -21,6 +61,7 @@
 
 body {
   background: var(--background);
-  color: var(--foreground);
+  /* color: var(--foreground); */
+  color: var(--color-neutral-);
   font-family: Arial, Helvetica, sans-serif;
 }
