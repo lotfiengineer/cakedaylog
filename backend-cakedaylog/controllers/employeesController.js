@@ -1,19 +1,30 @@
 const employeesList = require("../model/employeesList");
+const Employee = require("../model/employee");
 
-const getAllEmployees = (req, res) => {
-  res.send(employeesList);
+const getAllEmployees = async (req, res) => {
+  try {
+    const employees = await Employee.find();
+    res.json(employees);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
-const createNewEmployee = (req, res) => {
+const createNewEmployee = async (req, res) => {
   const { firstname, lastname, birthdate } = req.body;
-  const newEmployee = {
-    id: employeesList.length + 1,
-    firstname,
-    lastname,
-    birthdate,
-  };
-  employeesList.push(newEmployee);
-  res.status(201).send(newEmployee);
+
+  const employee = new Employee({
+    firstname: firstname,
+    lastname: lastname,
+    birthdate: birthdate,
+  });
+
+  try {
+    const newEmployee = await employee.save();
+    res.status(201).json(newEmployee);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
 };
 
 const getEmployee = (req, res) => {
