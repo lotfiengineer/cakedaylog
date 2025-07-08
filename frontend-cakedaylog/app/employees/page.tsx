@@ -3,9 +3,11 @@ import EmployeesList from "./EmployeesList";
 
 const Employees = () => {
   return (
-    <div className="max-w-2xl p-5">
-      <EmployeeForm />
-      <EmployeesList />
+    <div className="p-5 h-screen max-w-xl mx-auto">
+      <div className="flex flex-col w-full h-full justify-center">
+        <EmployeeForm />
+        <EmployeesList />
+      </div>
     </div>
   );
 };
