@@ -2,26 +2,34 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
-import { useState } from "react";
+import { z } from "zod";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { DatePicker } from "@/components/ui/date_picker";
+
+const EmployeeSchema = z.object({
+  firstname: z.string().min(2),
+  lastname: z.string().min(2),
+  birthdate: z.date(),
+});
+
+type EmployeeSchemaType = z.infer<typeof EmployeeSchema>;
 
 const EmployeeForm = () => {
-  const [data, setData] = useState({
-    firstname: "",
-    lastname: "",
-    birthdate: "",
-  });
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<EmployeeSchemaType>({ resolver: zodResolver(EmployeeSchema) });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setData({
-      ...data,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const onSubmit: SubmitHandler<EmployeeSchemaType> = async (data) => {
+    console.log(data);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
     const result = await fetch("http://localhost:3770/api/employees", {
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        ...data,
+      }),
       headers: {
         "Content-Type": "application/json",
       },
@@ -33,7 +41,10 @@ const EmployeeForm = () => {
   return (
     <div className="flex justify-center">
       <div className="w-full">
-        <form className="flex flex-col gap-3.5" onSubmit={handleSubmit}>
+        <form
+          className="flex flex-col gap-3.5"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <div className="flex flex-col">
             <Label
               htmlFor="firstname"
@@ -43,10 +54,10 @@ const EmployeeForm = () => {
             </Label>
             <Input
               id="firstname"
-              name="firstname"
               className="bg-cyan-200 p-2"
-              onChange={handleChange}
+              {...register("firstname")}
             />
+            {errors.firstname && <span>{errors.firstname.message}</span>}
           </div>
           <div className="flex flex-col">
             <Label
@@ -57,28 +68,36 @@ const EmployeeForm = () => {
             </Label>
             <Input
               id="lastname"
-              name="lastname"
               className="bg-cyan-200 p-2"
-              onChange={handleChange}
+              {...register("lastname")}
             />
+            {errors.lastname && <span>{errors.lastname.message}</span>}
           </div>
-          <div className="flex-col mb-6">
+          <div className="flex flex-col mb-6">
             <Label
               htmlFor="birthdate"
               className="text-secondary-dark font-semibold"
             >
               Birthdate
             </Label>
-            <Input
-              id="birthdate"
+            <Controller
               name="birthdate"
-              className="bg-cyan-200 p-2"
-              onChange={handleChange}
+              control={control}
+              render={({ field }) => (
+                <DatePicker onChange={(date) => field.onChange(date)} />
+              )}
             />
+
+            {/* <Input
+              id="birthdate"
+              className="bg-cyan-200 p-2"
+              {...register("birthdate")}
+            /> */}
+            {errors.birthdate && <span>{errors.birthdate.message}</span>}
           </div>
           <div className="flex justify-center mb-7">
             <Button className="w-48 cursor-pointer" type="submit">
-              Submit the form PLS!
+              Add a new clan member
             </Button>
           </div>
         </form>
