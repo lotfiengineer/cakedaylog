@@ -3,5 +3,4 @@ export interface Employee {
   firstname: string;
   lastname: string;
   birthdate: string;
-  __v: number;
 }

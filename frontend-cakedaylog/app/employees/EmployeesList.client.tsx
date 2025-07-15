@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Table,
   TableBody,
@@ -8,17 +10,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import React from "react";
-import { Employee } from "./model/Employee";
+import { useEmployees } from "../hooks/useEmployees";
+import { Employee } from "../types/employee";
 
-const EmployeesList = async () => {
-  const employeesList = await fetch("http://localhost:3770/api/employees", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  }).then((response) => {
-    return response.json() as Promise<Employee[]>;
-  });
+const EmployeesList = ({ initialData }: { initialData: Employee[] }) => {
+  const { data: employeesList, } = useEmployees(initialData);
 
   return (
     <div>
@@ -32,7 +28,7 @@ const EmployeesList = async () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {employeesList.map((emp: Employee) => (
+          {employeesList?.map((emp: Employee) => (
             <TableRow key={emp._id}>
               <TableCell>{emp.firstname}</TableCell>
               <TableCell>{emp.lastname}</TableCell>

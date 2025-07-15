@@ -2,18 +2,10 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
-import { z } from "zod";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DatePicker } from "@/components/ui/date_picker";
-
-const EmployeeSchema = z.object({
-  firstname: z.string().min(2),
-  lastname: z.string().min(2),
-  birthdate: z.date(),
-});
-
-type EmployeeSchemaType = z.infer<typeof EmployeeSchema>;
+import { EmployeeSchema, EmployeeSchemaType } from "../schemas/employee.schema";
 
 const EmployeeForm = () => {
   const {
