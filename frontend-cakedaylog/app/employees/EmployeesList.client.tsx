@@ -12,9 +12,10 @@ import {
 import React from "react";
 import { useEmployees } from "../hooks/useEmployees";
 import { Employee } from "../types/employee";
+import { axiosInstance } from "@/lib/axios";
 
 const EmployeesList = ({ initialData }: { initialData: Employee[] }) => {
-  const { data: employeesList, } = useEmployees(initialData);
+  const { data: employeesList } = useEmployees(initialData);
 
   return (
     <div>
@@ -25,6 +26,7 @@ const EmployeesList = ({ initialData }: { initialData: Employee[] }) => {
             <TableHead>Firstname</TableHead>
             <TableHead>Lastname</TableHead>
             <TableHead>Birthdate</TableHead>
+            <TableHead>Action</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -33,6 +35,16 @@ const EmployeesList = ({ initialData }: { initialData: Employee[] }) => {
               <TableCell>{emp.firstname}</TableCell>
               <TableCell>{emp.lastname}</TableCell>
               <TableCell>{emp.birthdate}</TableCell>
+              <TableCell>
+                <button
+                  onClick={() => {
+                    axiosInstance.delete(`/employees/${emp._id}`);
+                  }}
+                  className="bg-error text-white rounded-md p-1.5 cursor-pointer"
+                >
+                  Action
+                </button>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

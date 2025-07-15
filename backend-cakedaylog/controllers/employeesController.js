@@ -27,6 +27,24 @@ const createNewEmployee = async (req, res) => {
   }
 };
 
+const deleteEmployee = async (req, res) => {
+  try {
+    const employee = await Employee.findById(req.params.id);
+    if (!employee) {
+      return res.status(404).json({
+        message: `Employee ID ${req.params.id} was not found`,
+      });
+    }
+
+    await employee.deleteOne();
+    res.json({
+      message: `Employee ID ${req.params.id} was deleted successfully`,
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 const getEmployee = (req, res) => {
   const foundEmployee = employeesList.find(
     (employee) => employee.id === parseInt(req.params.id)
@@ -42,5 +60,6 @@ const getEmployee = (req, res) => {
 module.exports = {
   getAllEmployees,
   createNewEmployee,
+  deleteEmployee,
   getEmployee,
 };
