@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Employee } from "../types/employee";
 import { getQueryClient } from "@/lib/react-query/get-query-client";
 import { EmployeeSchemaType } from "../schemas/employee.schema";
@@ -45,7 +45,7 @@ export const prefetchEmployees = async () => {
 };
 
 export const useAddEmployee = () => {
-  const queryClient = useQueryClient();
+  const queryClient = getQueryClient();
 
   return useMutation({
     mutationFn: addEmployee,
@@ -57,7 +57,7 @@ export const useAddEmployee = () => {
 };
 
 export const useDeleteEmployee = () => {
-  const queryClient = useQueryClient();
+  const queryClient = getQueryClient();
 
   return useMutation({
     mutationFn: deleteEmployee,
