@@ -10,8 +10,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import React from "react";
-import useEmployees, { useDeleteEmployee } from "../hooks/useEmployees";
-import { Employee } from "../types/employee";
+import useEmployees, { useDeleteEmployee } from "../../lib/hooks/useEmployees";
+import { Employee } from "../../lib/types/employee";
 
 const EmployeesList = () => {
   const { data: employeesList } = useEmployees();

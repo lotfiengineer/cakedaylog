@@ -5,8 +5,11 @@ import { Label } from "@radix-ui/react-label";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DatePicker } from "@/components/ui/date_picker";
-import { EmployeeSchema, EmployeeSchemaType } from "../schemas/employee.schema";
-import { useAddEmployee } from "../hooks/useEmployees";
+import {
+  EmployeeSchema,
+  EmployeeSchemaType,
+} from "../../lib/schemas/employee.schema";
+import { useAddEmployee } from "../../lib/hooks/useEmployees";
 
 const AddEmployeeForm = () => {
   const { mutate } = useAddEmployee();
