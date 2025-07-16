@@ -1,17 +1,20 @@
-import { getEmployees } from "@/lib/server/getEmployees";
-import EmployeeForm from "./EmployeeForm";
+import AddEmployeeForm from "./AddEmployeeForm.client";
 import EmployeesList from "./EmployeesList.client";
+import { prefetchEmployees } from "../hooks/useEmployees";
+import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
 const Employees = async () => {
-  const employees = await getEmployees();
+  const queryClient = await prefetchEmployees();
 
   return (
-    <div className="p-5 h-screen max-w-xl mx-auto">
-      <div className="flex flex-col w-full h-full justify-center">
-        <EmployeeForm />
-        <EmployeesList initialData={employees} />
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <div className="py-10 max-w-xl mx-auto">
+        <div className="flex flex-col w-full h-full justify-center">
+          <AddEmployeeForm />
+          <EmployeesList />
+        </div>
       </div>
-    </div>
+    </HydrationBoundary>
   );
 };
 

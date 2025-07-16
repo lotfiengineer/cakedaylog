@@ -10,12 +10,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import React from "react";
-import { useEmployees } from "../hooks/useEmployees";
+import useEmployees, { useDeleteEmployee } from "../hooks/useEmployees";
 import { Employee } from "../types/employee";
-import { axiosInstance } from "@/lib/axios";
 
-const EmployeesList = ({ initialData }: { initialData: Employee[] }) => {
-  const { data: employeesList } = useEmployees(initialData);
+const EmployeesList = () => {
+  const { data: employeesList } = useEmployees();
+  const { mutate: deleteEmployee } = useDeleteEmployee();
 
   return (
     <div>
@@ -37,8 +37,8 @@ const EmployeesList = ({ initialData }: { initialData: Employee[] }) => {
               <TableCell>{emp.birthdate}</TableCell>
               <TableCell>
                 <button
-                  onClick={() => {
-                    axiosInstance.delete(`/employees/${emp._id}`);
+                  onClick={async () => {
+                    deleteEmployee(emp._id);
                   }}
                   className="bg-error text-white rounded-md p-1.5 cursor-pointer"
                 >

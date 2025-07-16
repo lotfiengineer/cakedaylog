@@ -6,8 +6,11 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DatePicker } from "@/components/ui/date_picker";
 import { EmployeeSchema, EmployeeSchemaType } from "../schemas/employee.schema";
+import { useAddEmployee } from "../hooks/useEmployees";
 
-const EmployeeForm = () => {
+const AddEmployeeForm = () => {
+  const { mutate } = useAddEmployee();
+
   const {
     register,
     handleSubmit,
@@ -16,18 +19,7 @@ const EmployeeForm = () => {
   } = useForm<EmployeeSchemaType>({ resolver: zodResolver(EmployeeSchema) });
 
   const onSubmit: SubmitHandler<EmployeeSchemaType> = async (data) => {
-    console.log(data);
-
-    const result = await fetch("http://localhost:3770/api/employees", {
-      body: JSON.stringify({
-        ...data,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-    });
-    console.log(await result.json());
+    await mutate(data);
   };
 
   return (
@@ -98,4 +90,4 @@ const EmployeeForm = () => {
   );
 };
 
-export default EmployeeForm;
+export default AddEmployeeForm;
