@@ -8,8 +8,8 @@ import { DatePicker } from "@/components/ui/date_picker";
 import {
   MemberSchema,
   MemberSchemaType,
-} from "../../lib/schemas/member.schema";
-import { useAddCommunityMember } from "../../lib/hooks/communityMembersHooks";
+} from "../../../lib/schemas/member.schema";
+import { useAddCommunityMember } from "../../../lib/hooks/communityMembersHooks";
 
 const AddCommunityMemberForm = () => {
   const { mutate } = useAddCommunityMember();

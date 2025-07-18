@@ -13,8 +13,8 @@ import React from "react";
 import {
   useCommunityMembers,
   useDeleteCommunityMember,
-} from "../../lib/hooks/communityMembersHooks";
-import { Member } from "../../lib/types/member";
+} from "../../../lib/hooks/communityMembersHooks";
+import { Member } from "../../../lib/types/member";
 
 const CommunityMembersList = () => {
   const { data: membersList } = useCommunityMembers();

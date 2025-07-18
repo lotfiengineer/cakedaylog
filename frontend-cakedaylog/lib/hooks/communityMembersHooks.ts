@@ -4,9 +4,17 @@ import { MemberSchemaType } from "@/lib/schemas/member.schema";
 import { axiosInstance } from "@/lib/axios";
 import getQueryClient from "@/lib/react-query/getQueryClient";
 import { queryKeys } from "@/lib/react-query/queryKeys";
+import { Community } from "@/lib/types/community";
 
 const apis = {
   communities: "/communities",
+};
+
+export const getAllCommunities = async () => {
+  const response = await axiosInstance.get<Community[]>(
+    `${apis.communities}/all`
+  );
+  return response.data;
 };
 
 const getCommunityMembers = async () => {
@@ -28,6 +36,15 @@ const deleteCommunityMember = async (id: string) => {
   );
   return response.data._id;
 };
+
+//** Hooks */
+
+// export const useCommunities = () => {
+//   return useQuery({
+//     queryKey: queryKeys.community.all,
+//     queryFn: getAllCommunities,
+//   });
+// };
 
 export const useCommunityMembers = () => {
   return useQuery({
