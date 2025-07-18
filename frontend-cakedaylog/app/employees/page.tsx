@@ -1,6 +1,6 @@
 import AddEmployeeForm from "./AddEmployeeForm.client";
 import EmployeesList from "./EmployeesList.client";
-import { prefetchEmployees } from "../../lib/hooks/useEmployees";
+import { prefetchEmployees } from "../../lib/hooks/membersHooks";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
 const Employees = async () => {

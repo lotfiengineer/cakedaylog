@@ -1,9 +1,9 @@
 import { z } from "zod";
 
-export const EmployeeSchema = z.object({
+export const MemberSchema = z.object({
   firstname: z.string().min(2),
   lastname: z.string().min(2),
   birthdate: z.date(),
 });
 
-export type EmployeeSchemaType = z.infer<typeof EmployeeSchema>;
+export type MemberSchemaType = z.infer<typeof MemberSchema>;

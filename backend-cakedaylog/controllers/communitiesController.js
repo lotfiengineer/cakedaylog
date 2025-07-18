@@ -42,7 +42,7 @@ const createNewMember = async (req, res) => {
 
     res.status(201).json({
       message: "New member to lotfiengineer community was added",
-      community: newMember,
+      member: newMember,
     });
   } catch (err) {
     res.status(500).json({ message: err.message });

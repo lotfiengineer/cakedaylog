@@ -10,11 +10,11 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import React from "react";
-import useEmployees, { useDeleteEmployee } from "../../lib/hooks/useEmployees";
-import { Employee } from "../../lib/types/employee";
+import { useMembers, useDeleteEmployee } from "../../lib/hooks/membersHooks";
+import { Member } from "../../lib/types/member";
 
 const EmployeesList = () => {
-  const { data: employeesList } = useEmployees();
+  const { data: membersList } = useMembers();
   const { mutate: deleteEmployee } = useDeleteEmployee();
 
   return (
@@ -30,7 +30,7 @@ const EmployeesList = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {employeesList?.map((emp: Employee) => (
+          {membersList?.map((emp: Member) => (
             <TableRow key={emp._id}>
               <TableCell>{emp.firstname}</TableCell>
               <TableCell>{emp.lastname}</TableCell>

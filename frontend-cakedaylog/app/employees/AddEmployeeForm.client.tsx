@@ -6,10 +6,10 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DatePicker } from "@/components/ui/date_picker";
 import {
-  EmployeeSchema,
-  EmployeeSchemaType,
-} from "../../lib/schemas/employee.schema";
-import { useAddEmployee } from "../../lib/hooks/useEmployees";
+  MemberSchema,
+  MemberSchemaType,
+} from "../../lib/schemas/member.schema";
+import { useAddEmployee } from "../../lib/hooks/membersHooks";
 
 const AddEmployeeForm = () => {
   const { mutate } = useAddEmployee();
@@ -19,9 +19,9 @@ const AddEmployeeForm = () => {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm<EmployeeSchemaType>({ resolver: zodResolver(EmployeeSchema) });
+  } = useForm<MemberSchemaType>({ resolver: zodResolver(MemberSchema) });
 
-  const onSubmit: SubmitHandler<EmployeeSchemaType> = async (data) => {
+  const onSubmit: SubmitHandler<MemberSchemaType> = async (data) => {
     await mutate(data);
   };
 
