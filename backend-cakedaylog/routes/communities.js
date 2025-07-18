@@ -7,7 +7,7 @@ router
   .get(communitiesController.getAllMembers)
   .post(communitiesController.createNewMember);
 
-router.route("/333").get(communitiesController.getAllCommunities);
+router.route("/all").get(communitiesController.getAllCommunities);
 
 router
   .route("/:id")
