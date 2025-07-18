@@ -1,6 +1,16 @@
 const Member = require("../model/member");
 const Community = require("../model/community");
 
+const getAllCommunities = async (req, res) => {
+  try {
+    const communities = await Community.find().select("author createdAt");
+
+    res.status(200).json(communities);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 const getAllMembers = async (req, res) => {
   try {
     const community = await Community.findOne({ author: "lotfiengineer" });
@@ -80,6 +90,7 @@ const getMember = (req, res) => {
 };
 
 module.exports = {
+  getAllCommunities,
   getAllMembers,
   createNewMember,
   deleteMember,
