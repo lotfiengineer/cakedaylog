@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const employeeSchema = require('./employee')
+const memberSchema = require("./member");
 
 const communitySchema = new mongoose.Schema({
   author: {
@@ -11,7 +11,7 @@ const communitySchema = new mongoose.Schema({
     default: Date.now,
   },
   members: {
-    type: [employeeSchema],
+    type: [memberSchema],
     default: [],
   },
 });

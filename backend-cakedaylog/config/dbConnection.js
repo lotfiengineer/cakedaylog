@@ -19,7 +19,23 @@ const connectToDB = async () => {
         members: [],
       });
 
+      const lotfiengineerCommunity = await Community.findOne({
+        author: "lotfiengineer",
+      });
+
+      lotfiengineerCommunity.members.push({
+        firstname: "Mohammad",
+        lastname: "Lotfi",
+        birthdate: new Date("2000-11-24"),
+      });
+
+      lotfiengineerCommunity.save();
+
       console.log("Community with author 'lotfiengineer' is created");
+    } else {
+      console.log(
+        "Community with author 'lotfiengineer' already exists. Happy developing :)"
+      );
     }
 
     // const db = mongoose.connection;

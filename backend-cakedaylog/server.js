@@ -2,7 +2,7 @@ const express = require("express");
 const corsOptions = require("./config/corsOptions");
 const cors = require("cors");
 const connectToDB = require("./config/dbConnection");
-require('dotenv').config();
+require("dotenv").config();
 const app = express();
 const PORT = 3770;
 
@@ -14,7 +14,7 @@ app.use(cors(corsOptions));
 
 app.use(express.json());
 
-app.use("/api/employees", require("./routes/employees"));
+app.use("/api/communities", require("./routes/communities"));
 
 connectToDB();
 
