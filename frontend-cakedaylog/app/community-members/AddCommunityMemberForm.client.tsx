@@ -9,10 +9,10 @@ import {
   MemberSchema,
   MemberSchemaType,
 } from "../../lib/schemas/member.schema";
-import { useAddEmployee } from "../../lib/hooks/membersHooks";
+import { useAddCommunityMember } from "../../lib/hooks/communityMembersHooks";
 
-const AddEmployeeForm = () => {
-  const { mutate } = useAddEmployee();
+const AddCommunityMemberForm = () => {
+  const { mutate } = useAddCommunityMember();
 
   const {
     register,
@@ -93,4 +93,4 @@ const AddEmployeeForm = () => {
   );
 };
 
-export default AddEmployeeForm;
+export default AddCommunityMemberForm;

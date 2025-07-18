@@ -10,17 +10,20 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import React from "react";
-import { useMembers, useDeleteEmployee } from "../../lib/hooks/membersHooks";
+import {
+  useCommunityMembers,
+  useDeleteCommunityMember,
+} from "../../lib/hooks/communityMembersHooks";
 import { Member } from "../../lib/types/member";
 
-const EmployeesList = () => {
-  const { data: membersList } = useMembers();
-  const { mutate: deleteEmployee } = useDeleteEmployee();
+const CommunityMembersList = () => {
+  const { data: membersList } = useCommunityMembers();
+  const { mutate: deleteCommunityMember } = useDeleteCommunityMember();
 
   return (
     <div>
       <Table>
-        <TableCaption>Employees List</TableCaption>
+        <TableCaption>Members List</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead>Firstname</TableHead>
@@ -38,7 +41,7 @@ const EmployeesList = () => {
               <TableCell>
                 <button
                   onClick={async () => {
-                    deleteEmployee(emp._id);
+                    deleteCommunityMember(emp._id);
                   }}
                   className="bg-error text-white rounded-md p-1.5 cursor-pointer"
                 >
@@ -53,4 +56,4 @@ const EmployeesList = () => {
   );
 };
 
-export default EmployeesList;
+export default CommunityMembersList;

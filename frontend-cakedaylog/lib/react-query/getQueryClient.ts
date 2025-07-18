@@ -12,7 +12,7 @@ function makeQueryClient() {
 
 let browserQueryClient: QueryClient | undefined = undefined;
 
-export function getQueryClient(): QueryClient {
+function getQueryClient(): QueryClient {
   if (isServer) {
     return makeQueryClient();
   } else {
@@ -20,3 +20,5 @@ export function getQueryClient(): QueryClient {
     return browserQueryClient;
   }
 }
+
+export default getQueryClient;

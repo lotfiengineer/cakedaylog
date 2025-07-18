@@ -51,16 +51,16 @@ const createNewMember = async (req, res) => {
 
 const deleteMember = async (req, res) => {
   try {
-    const employee = await Member.findById(req.params.id);
-    if (!employee) {
+    const member = await Member.findById(req.params.id);
+    if (!member) {
       return res.status(404).json({
-        message: `Employee ID ${req.params.id} was not found`,
+        message: `Member ID ${req.params.id} was not found`,
       });
     }
 
-    await employee.deleteOne();
+    await member.deleteOne();
     res.json({
-      message: `Employee ID ${req.params.id} was deleted successfully`,
+      message: `Member ID ${req.params.id} was deleted successfully`,
     });
   } catch (err) {
     res.status(500).json({ message: err.message });
@@ -68,15 +68,15 @@ const deleteMember = async (req, res) => {
 };
 
 const getMember = (req, res) => {
-  const foundEmployee = employeesList.find(
-    (employee) => employee.id === parseInt(req.params.id)
+  const foundMember = membersList.find(
+    (member) => member.id === parseInt(req.params.id)
   );
-  if (!foundEmployee) {
+  if (!foundMember) {
     return res.status(400).json({
-      message: `Employee ID ${req.params.id} not found`,
+      message: `Member ID ${req.params.id} not found`,
     });
   }
-  res.json(foundEmployee);
+  res.json(foundMember);
 };
 
 module.exports = {
