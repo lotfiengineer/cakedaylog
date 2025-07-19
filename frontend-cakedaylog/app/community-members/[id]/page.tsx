@@ -1,6 +1,6 @@
 import AddCommunityMemberForm from "./AddCommunityMemberForm.client";
 import CommunityMembersList from "./CommunityMembersList.client";
-import { prefetchCommunityMembers } from "../../../lib/hooks/communityMembersHooks";
+import { getCommunityById, prefetchCommunityMembers } from "../../../lib/hooks/communityMembersHooks";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
 interface Props {
@@ -10,6 +10,7 @@ interface Props {
 const CommunityMembers = async ({ params }: Props) => {
   const { id } = await params;
   const queryClient = await prefetchCommunityMembers();
+  const res = await getCommunityById(id);
 
   // todo: implement the feature to get one community and show the author here
   return (
@@ -17,7 +18,7 @@ const CommunityMembers = async ({ params }: Props) => {
       <div className="py-10 max-w-xl mx-auto">
         <div className="flex flex-col w-full h-full justify-center">
           <div className="mb-3 text-center">
-            This is the members of community with id: {id}
+            This is the members of community with id: {res.author}
           </div>
           <AddCommunityMemberForm />
           <CommunityMembersList />

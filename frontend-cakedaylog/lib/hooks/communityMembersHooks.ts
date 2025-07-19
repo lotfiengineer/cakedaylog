@@ -17,6 +17,13 @@ export const getAllCommunities = async () => {
   return response.data;
 };
 
+export const getCommunityById = async (id: string) => {
+  const response = await axiosInstance.get<Community>(
+    `${apis.communities}/all/${id}`
+  );
+  return response.data;
+};
+
 const getCommunityMembers = async () => {
   const response = await axiosInstance.get<Member[]>(apis.communities);
   return response.data;
