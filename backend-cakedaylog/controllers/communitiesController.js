@@ -11,6 +11,22 @@ const getAllCommunities = async (req, res) => {
   }
 };
 
+const getCommunityById = async (req, res) => {
+  try {
+    const community = await Community.findById(req.params.id).select("author");
+
+    if (!community) {
+      res.status(404).json({
+        message: "Community was not found",
+      });
+    }
+
+    res.status(200).json(community);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 const getAllMembers = async (req, res) => {
   try {
     const community = await Community.findOne({ author: "lotfiengineer" });
@@ -91,6 +107,7 @@ const getMember = (req, res) => {
 
 module.exports = {
   getAllCommunities,
+  getCommunityById,
   getAllMembers,
   createNewMember,
   deleteMember,

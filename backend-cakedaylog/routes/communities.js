@@ -9,6 +9,8 @@ router
 
 router.route("/all").get(communitiesController.getAllCommunities);
 
+router.route("/all/:id").get(communitiesController.getCommunityById);
+
 router
   .route("/:id")
   .delete(communitiesController.deleteMember)
