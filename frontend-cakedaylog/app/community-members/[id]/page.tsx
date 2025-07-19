@@ -8,6 +8,7 @@ interface Props {
 }
 
 const CommunityMembers = async ({ params }: Props) => {
+  const { id } = await params;
   const queryClient = await prefetchCommunityMembers();
 
   // todo: implement the feature to get one community and show the author here
@@ -16,7 +17,7 @@ const CommunityMembers = async ({ params }: Props) => {
       <div className="py-10 max-w-xl mx-auto">
         <div className="flex flex-col w-full h-full justify-center">
           <div className="mb-3 text-center">
-            This is the members of community with id: {params.id}
+            This is the members of community with id: {id}
           </div>
           <AddCommunityMemberForm />
           <CommunityMembersList />
