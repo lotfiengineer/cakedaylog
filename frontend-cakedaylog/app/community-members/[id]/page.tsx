@@ -12,7 +12,6 @@ const CommunityMembers = async ({ params }: Props) => {
   const queryClient = await prefetchCommunityMembers();
   const res = await getCommunityById(id);
 
-  // todo: implement the feature to get one community and show the author here
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <div className="py-10 max-w-xl mx-auto">
