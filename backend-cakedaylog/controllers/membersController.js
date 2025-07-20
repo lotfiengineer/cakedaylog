@@ -4,28 +4,28 @@ const Community = require("../model/community");
 //** Members controllers */
 const createMember = async (req, res) => {
   const { firstname, lastname, birthdate } = req.body;
+  const { communityId } = req.params;
 
   try {
-    const lotfiengineerCommunity = await Community.findOne({
-      author: "lotfiengineer",
-    });
+    const community = await Community.findById(communityId);
 
-    if (!lotfiengineerCommunity) {
+    console.log(community);
+
+    if (!community) {
       return res.status(404).json({
         message: "Community was not found",
       });
     }
 
-    lotfiengineerCommunity.members.push({
+    community.members.push({
       firstname,
       lastname,
       birthdate,
     });
 
-    await lotfiengineerCommunity.save();
+    await community.save();
 
-    const newMember =
-      lotfiengineerCommunity.members[lotfiengineerCommunity.members.length - 1];
+    const newMember = community.members[community.members.length - 1];
 
     res.status(201).json({
       message: "New member to lotfiengineer community was added",
@@ -38,7 +38,7 @@ const createMember = async (req, res) => {
 
 const getAllMembers = async (req, res) => {
   try {
-    const community = await Community.findOne({ author: "lotfiengineer" });
+    const community = await Community.findById(req.params.communityId);
     if (!community) {
       res.status(404).json({
         message: "Community was not found",
@@ -69,9 +69,9 @@ const deleteMember = async (req, res) => {
 };
 
 module.exports = {
+  create: createMember,
   getAll: getAllMembers,
   getById: getMemberById,
-  create: createMember,
   update: updateMember,
   delete: deleteMember,
 };

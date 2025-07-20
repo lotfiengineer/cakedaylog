@@ -15,7 +15,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use("/api/communities", require("./routes/communities"));
-app.use("/api/members", require("./routes/members"));
+app.use("/api/communities", require("./routes/members"));
 
 connectToDB();
 

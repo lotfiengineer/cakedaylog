@@ -68,9 +68,9 @@ const deleteCommunity = async (req, res) => {
 };
 
 module.exports = {
+  create: createCommunity,
   getAll: getAllCommunities,
   getById: getCommunityById,
-  create: createCommunity,
   update: updateCommunity,
   delete: deleteCommunity,
 };
