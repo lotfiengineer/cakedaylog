@@ -16,8 +16,12 @@ import {
 } from "../../../lib/hooks/communityMembersHooks";
 import { Member } from "../../../lib/types/member";
 
-const CommunityMembersList = () => {
-  const { data: membersList } = useCommunityMembers();
+interface Props {
+  communitId: string;
+}
+
+const CommunityMembersList = ({ communitId }: Props) => {
+  const { data: membersList } = useCommunityMembers(communitId);
   const { mutate: deleteCommunityMember } = useDeleteCommunityMember();
 
   return (

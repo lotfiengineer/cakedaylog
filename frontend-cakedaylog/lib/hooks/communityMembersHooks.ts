@@ -12,20 +12,20 @@ const apis = {
 
 export const getAllCommunities = async () => {
   const response = await axiosInstance.get<Community[]>(
-    `${apis.communities}/all`
+    `${apis.communities}`
   );
   return response.data;
 };
 
 export const getCommunityById = async (id: string) => {
   const response = await axiosInstance.get<Community>(
-    `${apis.communities}/all/${id}`
+    `${apis.communities}/${id}`
   );
   return response.data;
 };
 
-const getCommunityMembers = async () => {
-  const response = await axiosInstance.get<Member[]>(apis.communities);
+const getCommunityMembers = async (communityId: string) => {
+  const response = await axiosInstance.get<Member[]>(`${apis.communities}/${communityId}/members`);
   return response.data;
 };
 
@@ -53,20 +53,20 @@ const deleteCommunityMember = async (id: string) => {
 //   });
 // };
 
-export const useCommunityMembers = () => {
+export const useCommunityMembers = (communityId: string) => {
   return useQuery({
     queryKey: queryKeys.community.all,
-    queryFn: getCommunityMembers,
+    queryFn: () => getCommunityMembers(communityId),
   });
 };
 
-export const prefetchCommunityMembers = async () => {
+export const prefetchCommunityMembers = async (communityId: string) => {
   const queryClient = getQueryClient();
 
   try {
     await queryClient.prefetchQuery({
       queryKey: queryKeys.community.all,
-      queryFn: getCommunityMembers,
+      queryFn: () => getCommunityMembers(communityId),
     });
   } catch (error) {
     console.error("Error prefetching community members:", error);
