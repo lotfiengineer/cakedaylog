@@ -1,5 +1,33 @@
-const Member = require("../model/member");
 const Community = require("../model/community");
+
+//** Community controllers */
+
+const createCommunity = async (req, res) => {
+  const { author } = req.body;
+
+  try {
+    if (await Community.findOne({ author: author })) {
+      return res.status(400).json({
+        message: `Community with author ${author} already exists`,
+      });
+    }
+
+    const newCommunity = new Community({
+      author,
+      members: [],
+      createdAt: new Date(),
+    });
+
+    newCommunity.save();
+
+    res.status(201).json({
+      message: "New community was created",
+      community: newCommunity,
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
 
 const getAllCommunities = async (req, res) => {
   try {
@@ -27,89 +55,22 @@ const getCommunityById = async (req, res) => {
   }
 };
 
-const getAllMembers = async (req, res) => {
-  try {
-    const community = await Community.findOne({ author: "lotfiengineer" });
-    if (!community) {
-      res.status(404).json({
-        message: "Community was not found",
-      });
-    }
-    res.json(community.members);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
+const updateCommunity = async (req, res) => {
+  res.status(200).json({
+    message: "Update community endpoint is not implemented yet",
+  });
 };
 
-const createNewMember = async (req, res) => {
-  const { firstname, lastname, birthdate } = req.body;
-
-  try {
-    const lotfiengineerCommunity = await Community.findOne({
-      author: "lotfiengineer",
-    });
-
-    if (!lotfiengineerCommunity) {
-      return res.status(404).json({
-        message: "Community was not found",
-      });
-    }
-
-    lotfiengineerCommunity.members.push({
-      firstname,
-      lastname,
-      birthdate,
-    });
-
-    await lotfiengineerCommunity.save();
-
-    const newMember =
-      lotfiengineerCommunity.members[lotfiengineerCommunity.members.length - 1];
-
-    res.status(201).json({
-      message: "New member to lotfiengineer community was added",
-      member: newMember,
-    });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
-
-const deleteMember = async (req, res) => {
-  try {
-    const member = await Member.findById(req.params.id);
-    if (!member) {
-      return res.status(404).json({
-        message: `Member ID ${req.params.id} was not found`,
-      });
-    }
-
-    await member.deleteOne();
-    res.json({
-      message: `Member ID ${req.params.id} was deleted successfully`,
-    });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
-
-const getMember = (req, res) => {
-  const foundMember = membersList.find(
-    (member) => member.id === parseInt(req.params.id)
-  );
-  if (!foundMember) {
-    return res.status(400).json({
-      message: `Member ID ${req.params.id} not found`,
-    });
-  }
-  res.json(foundMember);
+const deleteCommunity = async (req, res) => {
+  res.status(200).json({
+    message: "Delete community endpoint is not implemented yet",
+  });
 };
 
 module.exports = {
-  getAllCommunities,
-  getCommunityById,
-  getAllMembers,
-  createNewMember,
-  deleteMember,
-  getMember,
+  getAll: getAllCommunities,
+  getById: getCommunityById,
+  create: createCommunity,
+  update: updateCommunity,
+  delete: deleteCommunity,
 };

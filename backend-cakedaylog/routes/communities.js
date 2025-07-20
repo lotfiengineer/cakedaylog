@@ -2,18 +2,14 @@ const express = require("express");
 const router = express.Router();
 const communitiesController = require("../controllers/communitiesController");
 
-router
-  .route("/")
-  .get(communitiesController.getAllMembers)
-  .post(communitiesController.createNewMember);
+const community = communitiesController;
 
-router.route("/all").get(communitiesController.getAllCommunities);
-
-router.route("/all/:id").get(communitiesController.getCommunityById);
+router.route("/").post(community.create).get(community.getAll);
 
 router
   .route("/:id")
-  .delete(communitiesController.deleteMember)
-  .get(communitiesController.getMember);
+  .get(community.getById)
+  .put(community.update)
+  .delete(community.delete);
 
 module.exports = router;
