@@ -11,7 +11,11 @@ import {
 } from "../../../lib/schemas/member.schema";
 import { useAddCommunityMember } from "../../../lib/hooks/communityMembersHooks";
 
-const AddCommunityMemberForm = () => {
+interface Props {
+  communitId: string;
+}
+
+const AddCommunityMemberForm = ({ communitId }: Props) => {
   const { mutate } = useAddCommunityMember();
 
   const {
@@ -22,7 +26,10 @@ const AddCommunityMemberForm = () => {
   } = useForm<MemberSchemaType>({ resolver: zodResolver(MemberSchema) });
 
   const onSubmit: SubmitHandler<MemberSchemaType> = async (data) => {
-    await mutate(data);
+    mutate({
+      communityId: communitId,
+      memberData: data,
+    });
   };
 
   return (

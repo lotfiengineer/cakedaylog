@@ -37,15 +37,18 @@ const CommunityMembersList = ({ communitId }: Props) => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {membersList?.map((emp: Member) => (
-            <TableRow key={emp._id}>
-              <TableCell>{emp.firstname}</TableCell>
-              <TableCell>{emp.lastname}</TableCell>
-              <TableCell>{emp.birthdate}</TableCell>
+          {membersList?.map((member: Member) => (
+            <TableRow key={member._id}>
+              <TableCell>{member.firstname}</TableCell>
+              <TableCell>{member.lastname}</TableCell>
+              <TableCell>{member.birthdate}</TableCell>
               <TableCell>
                 <button
                   onClick={async () => {
-                    deleteCommunityMember(emp._id);
+                    deleteCommunityMember({
+                      communityId: communitId,
+                      memberId: member._id,
+                    });
                   }}
                   className="bg-error text-white rounded-md p-1.5 cursor-pointer"
                 >

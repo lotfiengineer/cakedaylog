@@ -19,7 +19,7 @@ const CommunityMembers = async ({ params }: Props) => {
           <div className="mb-3 text-center">
             This is the members of community with id: {res.author}
           </div>
-          <AddCommunityMemberForm />
+          <AddCommunityMemberForm communitId={communitId} />
           <CommunityMembersList communitId={communitId} />
         </div>
       </div>

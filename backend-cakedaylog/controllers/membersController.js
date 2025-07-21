@@ -9,8 +9,6 @@ const createMember = async (req, res) => {
   try {
     const community = await Community.findById(communityId);
 
-    console.log(community);
-
     if (!community) {
       return res.status(404).json({
         message: "Community was not found",
@@ -63,8 +61,18 @@ const updateMember = async (req, res) => {
 };
 
 const deleteMember = async (req, res) => {
+  const { communityId, memberId } = req.params;
+
+  const community = await Community.findById(communityId);
+
+  community.members = community.members.filter((m) => m._id.toString() !== memberId);
+
+  community.save();
+
   res.status(200).json({
-    message: "Delete community member endpoint is not implemented yet",
+    res: community.members,
+    communityId,
+    memberId,
   });
 };
 

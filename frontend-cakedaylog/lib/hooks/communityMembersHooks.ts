@@ -8,12 +8,15 @@ import { Community } from "@/lib/types/community";
 
 const apis = {
   communities: "/communities",
+  communityMembers: (communityId: string) =>
+    `/communities/${communityId}/members`,
+  // Todo: fix this later
+  communityMembersIddsssss: (communityId: string, memberId: string) =>
+    `/communities/${communityId}/members/${memberId}`,
 };
 
 export const getAllCommunities = async () => {
-  const response = await axiosInstance.get<Community[]>(
-    `${apis.communities}`
-  );
+  const response = await axiosInstance.get<Community[]>(`${apis.communities}`);
   return response.data;
 };
 
@@ -25,21 +28,36 @@ export const getCommunityById = async (id: string) => {
 };
 
 const getCommunityMembers = async (communityId: string) => {
-  const response = await axiosInstance.get<Member[]>(`${apis.communities}/${communityId}/members`);
+  const response = await axiosInstance.get<Member[]>(
+    `${apis.communities}/${communityId}/members`
+  );
   return response.data;
 };
 
-const addCommunityMember = async (memberData: MemberSchemaType) => {
+// Todo: Remember this technique. Pass an object to functions you assign to mutationFn
+const addCommunityMember = async ({
+  memberData,
+  communityId,
+}: {
+  memberData: MemberSchemaType;
+  communityId: string;
+}) => {
   const response = await axiosInstance.post<Member>(
-    apis.communities,
+    apis.communityMembers(communityId),
     memberData
   );
   return response.data;
 };
 
-const deleteCommunityMember = async (id: string) => {
+const deleteCommunityMember = async ({
+  communityId,
+  memberId,
+}: {
+  communityId: string;
+  memberId: string;
+}) => {
   const response = await axiosInstance.delete<Member>(
-    `${apis.communities}/${id}`
+    apis.communityMembersIddsssss(communityId, memberId)
   );
   return response.data._id;
 };
