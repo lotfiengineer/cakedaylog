@@ -15,6 +15,10 @@ export default async function Home() {
   return (
     <div className="m-5">
       <div>
+        <Link href={"/community"}>
+          Create a community
+        </Link>
+
         {communityList?.map((community) => (
           <Card key={community._id} className="w-full max-w-sm">
             <CardHeader>
@@ -22,7 +26,7 @@ export default async function Home() {
               <CardDescription>{community.createdAt}</CardDescription>
               <CardAction>
                 <Button>
-                  <Link href={`/community-members/${community._id}`}>Go</Link>
+                  <Link href={`/community/${community._id}/members`}>Go</Link>
                 </Button>
               </CardAction>
             </CardHeader>

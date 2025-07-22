@@ -1,6 +1,6 @@
 import AddCommunityMemberForm from "./AddCommunityMemberForm.client";
 import CommunityMembersList from "./CommunityMembersList.client";
-import { getCommunityById, prefetchCommunityMembers } from "../../../lib/hooks/communityMembersHooks";
+import { getCommunityById, prefetchCommunityMembers } from "@/lib/hooks/communityMembersHooks";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
 interface Props {
