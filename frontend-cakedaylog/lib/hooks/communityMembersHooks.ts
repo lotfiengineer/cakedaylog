@@ -49,6 +49,23 @@ const addCommunityMember = async ({
   return response.data;
 };
 
+const updateCommunityMember = async ({
+  memberData,
+  communityId,
+  memberId,
+}: {
+  memberData: MemberSchemaType;
+  communityId: string;
+  memberId: string;
+}) => {
+  const response = await axiosInstance.put<Member>(
+    apis.communityMembersIddsssss(communityId, memberId),
+    memberData
+  );
+
+  return response.data._id;
+};
+
 const deleteCommunityMember = async ({
   communityId,
   memberId,
@@ -64,16 +81,9 @@ const deleteCommunityMember = async ({
 
 //** Hooks */
 
-// export const useCommunities = () => {
-//   return useQuery({
-//     queryKey: queryKeys.community.all,
-//     queryFn: getAllCommunities,
-//   });
-// };
-
 export const useCommunityMembers = (communityId: string) => {
   return useQuery({
-    queryKey: queryKeys.community.all,
+    queryKey: queryKeys.community.members.all,
     queryFn: () => getCommunityMembers(communityId),
   });
 };
@@ -83,7 +93,7 @@ export const prefetchCommunityMembers = async (communityId: string) => {
 
   try {
     await queryClient.prefetchQuery({
-      queryKey: queryKeys.community.all,
+      queryKey: queryKeys.community.members.all,
       queryFn: () => getCommunityMembers(communityId),
     });
   } catch (error) {
@@ -100,7 +110,19 @@ export const useAddCommunityMember = () => {
     mutationFn: addCommunityMember,
     onSettled: () =>
       queryClient.invalidateQueries({
-        queryKey: queryKeys.community.all,
+        queryKey: queryKeys.community.members.all,
+      }),
+  });
+};
+
+export const useUpdateCommunityMember = () => {
+  const queryClient = getQueryClient();
+
+  return useMutation({
+    mutationFn: updateCommunityMember,
+    onSettled: () =>
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.community.members.all,
       }),
   });
 };
@@ -111,7 +133,9 @@ export const useDeleteCommunityMember = () => {
   return useMutation({
     mutationFn: deleteCommunityMember,
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.community.all });
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.community.members.all,
+      });
     },
   });
 };

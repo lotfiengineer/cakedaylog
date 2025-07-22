@@ -14,10 +14,13 @@ import {
 
 interface Props {
   onChange: (val?: Date) => void;
+  defaultDate?: Date;
 }
 
-export const DatePicker = ({ onChange }: Props) => {
-  const [date, setDate] = React.useState<Date>();
+export const DatePicker = ({ onChange, defaultDate }: Props) => {
+  const [date, setDate] = React.useState<Date | undefined>(
+    defaultDate ? defaultDate : undefined
+  );
 
   React.useEffect(() => {
     onChange(date);

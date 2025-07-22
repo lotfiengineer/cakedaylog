@@ -8,9 +8,9 @@ interface Props {
 }
 
 const CommunityMembers = async ({ params }: Props) => {
-  const { id: communitId } = await params;
-  const queryClient = await prefetchCommunityMembers(communitId);
-  const res = await getCommunityById(communitId);
+  const { id: communityId } = await params;
+  const queryClient = await prefetchCommunityMembers(communityId);
+  const res = await getCommunityById(communityId);
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
@@ -19,8 +19,8 @@ const CommunityMembers = async ({ params }: Props) => {
           <div className="mb-3 text-center">
             This is the members of community with id: {res.author}
           </div>
-          <AddCommunityMemberForm communitId={communitId} />
-          <CommunityMembersList communitId={communitId} />
+          <AddCommunityMemberForm communityId={communityId} />
+          <CommunityMembersList communityId={communityId} />
         </div>
       </div>
     </HydrationBoundary>
