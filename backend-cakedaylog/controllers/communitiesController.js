@@ -20,10 +20,7 @@ const createCommunity = async (req, res) => {
 
     newCommunity.save();
 
-    res.status(201).json({
-      message: "New community was created",
-      community: newCommunity,
-    });
+    res.status(201).json(newCommunity);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
