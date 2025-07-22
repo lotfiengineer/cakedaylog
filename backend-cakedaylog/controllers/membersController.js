@@ -55,8 +55,21 @@ const getMemberById = (req, res) => {
 };
 
 const updateMember = async (req, res) => {
+  const { communityId, memberId } = req.params;
+  const { firstname, lastname, birthdate } = req.body;
+
+  const community = await Community.findById(communityId);
+
+  const member = community.members.find((m) => m._id.toString() === memberId);
+
+  member.firstname = firstname;
+  member.lastname = lastname;
+  member.birthdate = birthdate;
+
+  community.save();
+
   res.status(200).json({
-    message: "Update community member endpoint is not implemented yet",
+    member,
   });
 };
 
@@ -65,7 +78,9 @@ const deleteMember = async (req, res) => {
 
   const community = await Community.findById(communityId);
 
-  community.members = community.members.filter((m) => m._id.toString() !== memberId);
+  community.members = community.members.filter(
+    (m) => m._id.toString() !== memberId
+  );
 
   community.save();
 
