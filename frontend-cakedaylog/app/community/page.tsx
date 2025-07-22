@@ -1,9 +1,11 @@
-import React from 'react'
+import CreateCommunityForm from "./CreateCommunityForm.client";
 
 const Community = () => {
   return (
-    <div>You can create a community now</div>
-  )
-}
+    <div>
+      <CreateCommunityForm />
+    </div>
+  );
+};
 
-export default Community
+export default Community;

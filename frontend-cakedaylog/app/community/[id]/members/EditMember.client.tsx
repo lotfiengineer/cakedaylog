@@ -45,8 +45,6 @@ const EditMember = ({
       memberId: member._id,
     });
 
-    console.log(data);
-
     closeRef.current?.click();
   };
 
