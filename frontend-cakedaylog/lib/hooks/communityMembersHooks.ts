@@ -20,13 +20,6 @@ export const getAllCommunities = async () => {
   return response.data;
 };
 
-export const getCommunityById = async (id: string) => {
-  const response = await axiosInstance.get<Community>(
-    `${apis.communities}/${id}`
-  );
-  return response.data;
-};
-
 const getCommunityMembers = async (communityId: string) => {
   const response = await axiosInstance.get<Member[]>(
     `${apis.communities}/${communityId}/members`
@@ -85,6 +78,20 @@ export const useCommunityMembers = (communityId: string) => {
   return useQuery({
     queryKey: queryKeys.community.members.all,
     queryFn: () => getCommunityMembers(communityId),
+  });
+};
+
+export const getCommunityById = async (communityId: string) => {
+  const response = await axiosInstance.get<Community>(
+    `/communities/${communityId}`
+  );
+  return response.data;
+};
+
+export const useCommunity = (communityId: string) => {
+  return useQuery({
+    queryFn: () => getCommunityById(communityId),
+    queryKey: queryKeys.community.byId(communityId),
   });
 };
 
