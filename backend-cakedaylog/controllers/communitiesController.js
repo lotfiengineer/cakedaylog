@@ -53,15 +53,45 @@ const getCommunityById = async (req, res) => {
 };
 
 const updateCommunity = async (req, res) => {
+  try {
+    const community = await Community.findById(req.params.id).select("author");
+
+    if (!community) {
+      res.status(404).json({
+        message: "Community was not found",
+      });
+    }
+
+    community.author = req.body.author;
+
+    await community.save();
+
+    res.status(200).json(community);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+
   res.status(200).json({
     message: "Update community endpoint is not implemented yet",
   });
 };
 
 const deleteCommunity = async (req, res) => {
-  res.status(200).json({
-    message: "Delete community endpoint is not implemented yet",
-  });
+  try {
+    const community = await Community.findById(req.params.id).select("author");
+
+    if (!community) {
+      res.status(404).json({
+        message: "Community was not found",
+      });
+    }
+
+    await community.deleteOne();
+
+    res.status(200).json(community);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 };
 
 module.exports = {
