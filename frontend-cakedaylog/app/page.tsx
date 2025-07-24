@@ -31,7 +31,7 @@ export default async function Home() {
               className="w-full"
               href={`/community/${community._id}/members`}
             >
-              <Button className="w-full">Go</Button>
+              <Button className="w-full">Add Member</Button>
             </Link>
 
             <Link className="w-full" href={`/community/${community._id}/`}>

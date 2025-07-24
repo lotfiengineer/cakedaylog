@@ -8,7 +8,7 @@
 }
 
 html {
-  scrollbar-gutter: stable;
+  /* scrollbar-gutter: stable; */
 }
 
 @theme inline {
@@ -52,9 +52,9 @@ html {
 }
 
 @theme {
-  --color-primary-dark: #d02d1e;
-  --color-primary: #f86355;
-  --color-primary-light: #f4c1bc;
+  --color-primary-dark: #7e22ce;
+  --color-primary: #9333ea;
+  --color-primary-light: #c084fc;
 
   --color-secondary-dark: #3549b5;
   --color-secondary: #5f72d7;
@@ -67,6 +67,7 @@ html {
 
   --color-success: #0e980e;
   --color-error: #c92020;
+  --color-error-300: #e72727;
   --color-warning: #ee9c11;
   --color-info: #2f78f0;
 }

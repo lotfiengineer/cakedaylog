@@ -1,13 +1,15 @@
 import { getCommunityById } from "@/lib/hooks/communityMembersHooks";
 import React from "react";
+import { useForm } from "react-hook-form";
+import CommunityDetails from "./CommunityDetails.client";
 
 const CommunityDetail = async ({ params }: { params: { id: string } }) => {
   const { id } = await params;
   const communityDetails = await getCommunityById(id);
+
   return (
     <div>
-      <div>You can see community birthdates here And edit the community</div>
-      {communityDetails.author}
+      <CommunityDetails author={communityDetails.author} />
     </div>
   );
 };
