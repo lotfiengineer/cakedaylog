@@ -27,7 +27,7 @@ const CreateCommunityForm = () => {
   };
 
   return (
-    <div className="max-w-60 mx-auto mt-10">
+    <div className="mt-10">
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
         <div className="flex flex-col gap-1.5">
           <Label>Author name</Label>

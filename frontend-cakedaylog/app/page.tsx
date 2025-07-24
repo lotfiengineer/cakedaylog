@@ -1,11 +1,12 @@
 import { Button } from "@/components/ui/button";
 import {
   Card,
-  CardAction,
-  CardDescription,
   CardHeader,
   CardTitle,
+  CardDescription,
+  CardFooter,
 } from "@/components/ui/card";
+
 import { getAllCommunities } from "@/lib/hooks/communityMembersHooks";
 import Link from "next/link";
 
@@ -13,24 +14,34 @@ export default async function Home() {
   const communityList = await getAllCommunities();
 
   return (
-    <div className="m-5">
-      <div>
-        <Link href={"/community"}>Create a community</Link>
+    <div className="flex flex-col items-center gap-3">
+      <Link href={"/community"}>
+        <Button>Create a community</Button>
+      </Link>
 
-        {communityList?.map((community) => (
-          <Card key={community._id} className="w-full max-w-sm">
-            <CardHeader>
-              <CardTitle>{community.author}</CardTitle>
-              <CardDescription>{community.createdAt}</CardDescription>
-              <CardAction>
-                <Button>
-                  <Link href={`/community/${community._id}/members`}>Go</Link>
-                </Button>
-              </CardAction>
-            </CardHeader>
-          </Card>
-        ))}
-      </div>
+      {communityList?.map((community) => (
+        <Card key={community._id} className="w-full">
+          <CardHeader>
+            <CardTitle>Author: {community.author}</CardTitle>
+            <CardDescription>Created at: {community.createdAt}</CardDescription>
+          </CardHeader>
+
+          <CardFooter>
+            <Link
+              className="w-full"
+              href={`/community/${community._id}/members`}
+            >
+              <Button className="w-full">Go</Button>
+            </Link>
+
+            <Link className="w-full" href={`/community/${community._id}/`}>
+              <Button variant={"secondary"} className="text-neutral-100 w-full">
+                View Details
+              </Button>
+            </Link>
+          </CardFooter>
+        </Card>
+      ))}
     </div>
   );
 }
