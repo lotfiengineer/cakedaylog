@@ -11,11 +11,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { useDeleteCommunity } from "@/lib/hooks/communityHooks";
 
 import { useRef } from "react";
 
-const DeleteCommunity = () => {
+const DeleteCommunity = ({ communityId }: { communityId: string }) => {
   const closeRef = useRef<HTMLButtonElement>(null);
+  const { mutate: deleteCommunity } = useDeleteCommunity();
 
   return (
     <Dialog>
@@ -40,6 +42,7 @@ const DeleteCommunity = () => {
 
           <Button
             onClick={() => {
+              deleteCommunity(communityId);
               closeRef.current?.click();
             }}
           >

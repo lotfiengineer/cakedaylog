@@ -10,12 +10,14 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import DeleteCommunity from "./DeleteCommunity.client";
+import { useEditCommunity } from "@/lib/hooks/communityHooks";
 
 interface Props {
   author: string;
+  communityId: string;
 }
 
-const CommunityDetails = ({ author }: Props) => {
+const CommunityDetails = ({ author, communityId }: Props) => {
   const {
     register,
     handleSubmit,
@@ -24,8 +26,13 @@ const CommunityDetails = ({ author }: Props) => {
     resolver: zodResolver(CommunitySchema),
   });
 
+  const { mutate: editCommunity } = useEditCommunity();
+
   const onSubmit: SubmitHandler<CommunitySchemaType> = (data) => {
-    // Todo: call the api to edit the community
+    editCommunity({
+      communityId: communityId,
+      community: data,
+    });
   };
 
   return (
@@ -44,7 +51,7 @@ const CommunityDetails = ({ author }: Props) => {
         <Button>Edit Community</Button>
       </form>
 
-      <DeleteCommunity />
+      <DeleteCommunity communityId={communityId} />
     </div>
   );
 };

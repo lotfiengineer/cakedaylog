@@ -1,6 +1,5 @@
 import { getCommunityById } from "@/lib/hooks/communityMembersHooks";
 import React from "react";
-import { useForm } from "react-hook-form";
 import CommunityDetails from "./CommunityDetails.client";
 
 const CommunityDetail = async ({ params }: { params: { id: string } }) => {
@@ -9,7 +8,7 @@ const CommunityDetail = async ({ params }: { params: { id: string } }) => {
 
   return (
     <div>
-      <CommunityDetails author={communityDetails.author} />
+      <CommunityDetails communityId={id} author={communityDetails.author} />
     </div>
   );
 };
