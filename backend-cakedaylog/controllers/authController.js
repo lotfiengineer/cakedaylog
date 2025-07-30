@@ -65,7 +65,6 @@ const login = async (req, res) => {
       token,
       user: {
         id: user._id,
-
         fullname: user.fullname,
         email: user.email,
       },
@@ -77,7 +76,36 @@ const login = async (req, res) => {
   }
 };
 
+const resetPassword = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const foundUser = await User.findOne({ email });
+
+    if (!foundUser)
+      return res.status(400).json({
+        message: "User with this email doesn't exist",
+      });
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    foundUser.password = hashedPassword;
+    await foundUser.save();
+
+    res.status(202).json({
+      message: "User password changed",
+      user: foundUser,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+};
+
 module.exports = {
   register,
   login,
+  resetPassword,
 };
