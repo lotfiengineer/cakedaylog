@@ -19,7 +19,10 @@ export default async function Home() {
         <Link href={"/community"}>
           <Button>Create a community</Button>
         </Link>
-        <Link href={"/auth/login"}>Login</Link>
+        <div className="flex gap-4">
+          <Link href={"/auth/login"}>Login</Link>
+          <Link href={"/auth/signup"}>Signup</Link>
+        </div>
       </div>
 
       {communityList?.map((community) => (

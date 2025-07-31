@@ -16,6 +16,15 @@ const login = async (userRequest: UserRequest) => {
   return response.data;
 };
 
+const signup = async (userRequest: UserRequest) => {
+  const response = await axiosInstance.post<UserResponse>(
+    "http://localhost:3770/api/auth/register",
+    userRequest
+  );
+
+  return response.data;
+};
+
 export const useLogin = () => {
   const router = useRouter();
 
@@ -26,7 +35,19 @@ export const useLogin = () => {
       LocalStorageService.setItem("token", data?.token ?? "");
       LocalStorageService.setItem("email", data?.user.email ?? "");
       LocalStorageService.setItem("userId", data?.user.id ?? "");
-      router.back();
+      router.push("/");
+    },
+  });
+};
+
+export const useSignup = () => {
+  const router = useRouter();
+
+  return useMutation({
+    mutationKey: queryKeys.auth.signup,
+    mutationFn: signup,
+    onSuccess: () => {
+      router.push("/auth/login");
     },
   });
 };
