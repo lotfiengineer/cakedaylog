@@ -9,7 +9,7 @@ const CommunityDetail = async ({ params }: { params: { id: string } }) => {
 
   return (
     <div>
-      <CommunityDetails communityId={id} author={communityDetails.author} />
+      <CommunityDetails communityId={id} name={communityDetails.name} />
       <BirthdayCalendar />
     </div>
   );

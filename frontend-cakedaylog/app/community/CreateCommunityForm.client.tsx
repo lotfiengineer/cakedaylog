@@ -30,9 +30,9 @@ const CreateCommunityForm = () => {
     <div className="mt-10">
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
         <div className="flex flex-col gap-1.5">
-          <Label>Author name</Label>
-          <Input {...register("author")} />
-          {errors.author && <span>{errors.author.message}</span>}
+          <Label>Community name</Label>
+          <Input {...register("name")} />
+          {errors.name && <span>{errors.name.message}</span>}
         </div>
         <Button type="submit">Submit</Button>
       </form>

@@ -1,5 +1,6 @@
 export interface Community {
   _id: string;
-  author: string;
+  name: string;
+  authorId: string;
   createdAt: string;
 }

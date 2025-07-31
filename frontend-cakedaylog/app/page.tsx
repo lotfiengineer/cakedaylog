@@ -28,7 +28,7 @@ export default async function Home() {
       {communityList?.map((community) => (
         <Card key={community._id} className="w-full">
           <CardHeader>
-            <CardTitle>Author: {community.author}</CardTitle>
+            <CardTitle>Name: {community.name}</CardTitle>
             <CardDescription>Created at: {community.createdAt}</CardDescription>
           </CardHeader>
 

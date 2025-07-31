@@ -13,11 +13,11 @@ import DeleteCommunity from "./DeleteCommunity.client";
 import { useEditCommunity } from "@/lib/hooks/communityHooks";
 
 interface Props {
-  author: string;
+  name: string;
   communityId: string;
 }
 
-const CommunityDetails = ({ author, communityId }: Props) => {
+const CommunityDetails = ({ name, communityId }: Props) => {
   const {
     register,
     handleSubmit,
@@ -39,13 +39,13 @@ const CommunityDetails = ({ author, communityId }: Props) => {
     <div>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <div className="flex flex-col gap-1">
-          <Label htmlFor="editAuthor">Author</Label>
+          <Label htmlFor="editName">Name</Label>
           <Input
-            {...register("author")}
-            id="editAuthor"
-            defaultValue={author}
+            {...register("name")}
+            id="editName"
+            defaultValue={name}
           />
-          {errors.author && <span>{errors.author.message}</span>}
+          {errors.name && <span>{errors.name.message}</span>}
         </div>
 
         <Button>Edit Community</Button>
