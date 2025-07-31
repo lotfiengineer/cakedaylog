@@ -1,6 +1,11 @@
 // src/lib/react-query/queryKeys.ts
 
 export const queryKeys = {
+  auth: {
+    login: ['login'] as const,
+    signup: ['signup'] as const,
+  },
+
   community: {
     // Key for querying all communities (e.g., list view)
     all: ["community"] as const,

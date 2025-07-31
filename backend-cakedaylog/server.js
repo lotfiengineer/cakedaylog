@@ -16,7 +16,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use("/api/auth", require("./routes/auth"));
-app.use("/api/communities", authMiddleware, require("./routes/communities"));
+app.use("/api/communities", require("./routes/communities"));
 app.use("/api/communities", authMiddleware, require("./routes/members"));
 app.use("/api/events", authMiddleware, require("./routes/events"));
 

@@ -6,18 +6,21 @@ import {
   CardDescription,
   CardFooter,
 } from "@/components/ui/card";
-
 import { getAllCommunities } from "@/lib/hooks/communityMembersHooks";
+
 import Link from "next/link";
 
 export default async function Home() {
   const communityList = await getAllCommunities();
 
   return (
-    <div className="flex flex-col items-center gap-3">
-      <Link href={"/community"}>
-        <Button>Create a community</Button>
-      </Link>
+    <div className="flex flex-col items-center gap-8 mt-3">
+      <div className="flex justify-between w-full items-center">
+        <Link href={"/community"}>
+          <Button>Create a community</Button>
+        </Link>
+        <Link href={"/auth/login"}>Login</Link>
+      </div>
 
       {communityList?.map((community) => (
         <Card key={community._id} className="w-full">
