@@ -1,21 +1,24 @@
 const mongoose = require("mongoose");
 const memberSchema = require("./member");
 
-const communitySchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
+const communitySchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    authorId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
+    },
+    members: {
+      type: [memberSchema],
+      default: [],
+    },
   },
-  authorId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
-  members: {
-    type: [memberSchema],
-    default: [],
-  },
-});
+  { timestamps: true }
+);
 
 const Community = mongoose.model("Community", communitySchema);
 
