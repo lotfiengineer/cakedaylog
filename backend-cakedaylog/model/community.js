@@ -2,13 +2,14 @@ const mongoose = require("mongoose");
 const memberSchema = require("./member");
 
 const communitySchema = new mongoose.Schema({
-  author: {
+  name: {
     type: String,
     required: true,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
+  authorId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
   },
   members: {
     type: [memberSchema],

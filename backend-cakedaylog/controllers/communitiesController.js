@@ -3,17 +3,23 @@ const Community = require("../model/community");
 //** Community controllers */
 
 const createCommunity = async (req, res) => {
-  const { author } = req.body;
+  const { name } = req.body;
+
+  if (!name)
+    return res.status(400).json({
+      message: "Community name is required!",
+    });
 
   try {
-    if (await Community.findOne({ author: author })) {
+    if (await Community.findOne({ name: name })) {
       return res.status(400).json({
-        message: `Community with author ${author} already exists`,
+        message: `Community with the name '${name}' already exists`,
       });
     }
 
     const newCommunity = new Community({
-      author,
+      name,
+      authorId: req.userId,
       members: [],
       createdAt: new Date(),
     });
@@ -28,7 +34,9 @@ const createCommunity = async (req, res) => {
 
 const getAllCommunities = async (req, res) => {
   try {
-    const communities = await Community.find().select("author createdAt");
+    const communities = await Community.find().select(
+      "name authorId createdAt"
+    );
 
     res.status(200).json(communities);
   } catch (err) {
@@ -38,7 +46,7 @@ const getAllCommunities = async (req, res) => {
 
 const getCommunityById = async (req, res) => {
   try {
-    const community = await Community.findById(req.params.id).select("author");
+    const community = await Community.findById(req.params.id).select("name");
 
     if (!community) {
       res.status(404).json({
@@ -54,7 +62,7 @@ const getCommunityById = async (req, res) => {
 
 const updateCommunity = async (req, res) => {
   try {
-    const community = await Community.findById(req.params.id).select("author");
+    const community = await Community.findById(req.params.id);
 
     if (!community) {
       res.status(404).json({
@@ -62,7 +70,7 @@ const updateCommunity = async (req, res) => {
       });
     }
 
-    community.author = req.body.author;
+    community.name = req.body.name;
 
     await community.save();
 
@@ -78,7 +86,7 @@ const updateCommunity = async (req, res) => {
 
 const deleteCommunity = async (req, res) => {
   try {
-    const community = await Community.findById(req.params.id).select("author");
+    const community = await Community.findById(req.params.id);
 
     if (!community) {
       res.status(404).json({
