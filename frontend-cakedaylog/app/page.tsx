@@ -30,6 +30,7 @@ export default async function Home() {
           <CardHeader>
             <CardTitle>Name: {community.name}</CardTitle>
             <CardDescription>Created at: {community.createdAt}</CardDescription>
+            <CardDescription>Author: {community.author.email}</CardDescription>
           </CardHeader>
 
           <CardFooter>
