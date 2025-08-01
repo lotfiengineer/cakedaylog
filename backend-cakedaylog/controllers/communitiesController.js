@@ -35,21 +35,10 @@ const createCommunity = async (req, res) => {
 const getAllCommunities = async (req, res) => {
   try {
     const communities = await Community.find()
-      .select("name authorId createdAt")
-      .populate("authorId", "fullname email");
+      .select("name author createdAt")
+      .populate("author", "fullname email");
 
-    const formattedCommunities = communities.map((community) => ({
-      _id: community._id,
-      name: community.name,
-      createdAt: community.createdAt,
-      author: {
-        _id: community.authorId._id,
-        fullname: community.authorId.fullname,
-        email: community.authorId.email,
-      },
-    }));
-
-    res.status(200).json(formattedCommunities);
+    res.status(200).json(communities);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
