@@ -8,7 +8,7 @@ const app = express();
 const PORT = 3770;
 
 app.get("/", (req, res) => {
-  res.send("Hello, This is cakedaylog.com");
+  res.send("Hello, This is communaverse.com");
 });
 
 app.use(cors(corsOptions));

@@ -1,1 +1,1 @@
-This is the cakedaylog.com project.
+This is the communaverse.com project.
