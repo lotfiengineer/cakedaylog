@@ -46,6 +46,15 @@ export default async function Home() {
                 View Details
               </Button>
             </Link>
+
+            <Link
+              className="w-full"
+              href={`/community/${community._id}/events`}
+            >
+              <Button variant={"outline"} className=" w-full">
+                Events
+              </Button>
+            </Link>
           </CardFooter>
         </Card>
       ))}

@@ -1,7 +1,6 @@
 import { getCommunityById } from "@/lib/hooks/communityMembersHooks";
 import React from "react";
 import CommunityDetails from "./CommunityDetails.client";
-import BirthdayCalendar from "@/components/BirthdayCalendar";
 
 const CommunityDetail = async ({ params }: { params: { id: string } }) => {
   const { id } = await params;
@@ -10,7 +9,6 @@ const CommunityDetail = async ({ params }: { params: { id: string } }) => {
   return (
     <div>
       <CommunityDetails communityId={id} name={communityDetails.name} />
-      <BirthdayCalendar />
     </div>
   );
 };
